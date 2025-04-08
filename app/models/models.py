@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List
 
 from sqlmodel import Field, Relationship, SQLModel
 
@@ -11,7 +12,7 @@ class Table(SQLModel, table=True):
     seats: int
     location: str
 
-    reservations: list["Reservation"] = Relationship(back_populates="tables")
+    reservations: List["Reservation"] = Relationship(back_populates="table")
 
 
 class Reservation(SQLModel, table=True):
