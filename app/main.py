@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-version = 'v1'
+version = "v1"
 
 app = FastAPI(
     title="Restaurant Booking",
@@ -9,6 +9,6 @@ app = FastAPI(
 )
 
 
-@app.get('/greet')
+@app.get("/greet")
 async def method_name():
-    return  {"message": "Hello World!"}
+    return {"message": "Hello World!"}
