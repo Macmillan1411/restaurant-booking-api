@@ -1,14 +1,10 @@
 from fastapi import FastAPI
 
-version = "v1"
+from app.routers.table_router import table_router
 
 app = FastAPI(
     title="Restaurant Booking",
     description="API-сервис бронирования столиков в ресторане",
-    version=version,
 )
 
-
-@app.get("/greet")
-async def method_name():
-    return {"message": "Hello World!"}
+app.include_router(table_router, prefix="/tables")
