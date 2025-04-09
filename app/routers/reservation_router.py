@@ -37,7 +37,7 @@ async def create_reservation(
     return new_reservation
 
 
-@reservation_router.delete("/", status_code=status.HTTP_200_OK)
+@reservation_router.delete("/{id}", status_code=status.HTTP_200_OK)
 async def delete_reservation(id: int, session: AsyncSession = Depends(get_session)):
     """Delete a reservation by id"""
     try:
