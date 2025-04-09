@@ -4,7 +4,7 @@ from sqlmodel import select
 
 from app.core.exceptions import DatabaseOperationException, TableNotFoundException
 from app.models.models import Table
-from app.schemas.table import TableCreate, TableUpdate
+from app.schemas.table import TableCreate
 
 
 class TableService:
@@ -63,7 +63,7 @@ class TableService:
             )
 
     async def update_table(
-        self, id: int, table_data: TableUpdate, session: AsyncSession
+        self, id: int, table_data: TableCreate, session: AsyncSession
     ):
         """Update a table by ID."""
         table_to_update = await self.get_table(id, session)
