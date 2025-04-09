@@ -3,9 +3,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
 from app.core.exceptions import DatabaseOperationException, TableNotFoundException
+from app.core.logger import logger
 from app.models.models import Table
 from app.schemas.table import TableCreate
-from app.core.logger import logger
 
 
 class TableService:
@@ -85,7 +85,7 @@ class TableService:
             logger.info(f"Table with id {id} has been successfully updated")
             return table_to_update
         except SQLAlchemyError as e:
-            logger.error( f"Database error updating table {id}: {str(e)}")
+            logger.error(f"Database error updating table {id}: {str(e)}")
             raise DatabaseOperationException(
                 f"Database error updating table {id}: {str(e)}"
             )

@@ -34,6 +34,7 @@ async def create_table(
 
     return new_table
 
+
 @table_router.delete("/{id}", status_code=status.HTTP_200_OK)
 async def delete_table(id: int, session: AsyncSession = Depends(get_session)):
     """Delete a table by id"""
