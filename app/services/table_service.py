@@ -68,24 +68,3 @@ class TableService:
             raise DatabaseOperationException(
                 f"Database error deleting table {id}: {str(e)}"
             )
-
-    async def update_table(
-        self, id: int, table_data: TableCreate, session: AsyncSession
-    ):
-        """Update a table by ID."""
-        table_to_update = await self.get_table(id, session)
-
-        try:
-            update_data = table_data.model_dump(exclude_unset=True)
-            for key, value in update_data.items():
-                setattr(table_to_update, key, value)
-
-            await session.flush()
-            await session.refresh(table_to_update)
-            logger.info(f"Table with id {id} has been successfully updated")
-            return table_to_update
-        except SQLAlchemyError as e:
-            logger.error(f"Database error updating table {id}: {str(e)}")
-            raise DatabaseOperationException(
-                f"Database error updating table {id}: {str(e)}"
-            )

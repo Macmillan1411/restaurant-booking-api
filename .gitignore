@@ -1,3 +1,4 @@
 .env
 adesign/
 __pycache__/
+pytest.ini

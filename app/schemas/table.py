@@ -1,18 +1,16 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
-class TableBase(BaseModel):
+class TableCreate(BaseModel):
+    name: str = Field(..., min_length=1)
+    seats: int = Field(gt=0)
+    location: str = Field(..., min_length=1)
+
+
+class TableRead(BaseModel):
+    id: int
     name: str
     seats: int
     location: str
 
-
-class TableCreate(TableBase):
-    pass
-
-
-class TableRead(TableBase):
-    id: int
-
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
