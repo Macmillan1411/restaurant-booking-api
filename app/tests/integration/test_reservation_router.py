@@ -92,3 +92,4 @@ class TestReservationRouter:
             },
         )
         assert response.status_code == 409
+        assert "already reserved" in response.json()["detail"].lower()
