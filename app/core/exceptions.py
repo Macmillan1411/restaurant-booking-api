@@ -14,3 +14,9 @@ class DatabaseOperationException(Exception):
     """Raised when a database operation fails"""
 
     pass
+
+
+class TableDoesntExistException(Exception):
+    """Raised when a table doesn't exist"""
+
+    pass

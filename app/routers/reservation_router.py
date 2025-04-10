@@ -4,7 +4,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_session
-from app.core.exceptions import DatabaseOperationException, ReservationNotFoundException
+from app.core.exceptions import (
+    DatabaseOperationException,
+    ReservationNotFoundException,
+    TableDoesntExistException,
+)
 from app.schemas.reservation import ReservationCreate, ReservationRead
 from app.services.reservation_service import ReservationService
 
@@ -33,6 +37,8 @@ async def create_reservation(
     except DatabaseOperationException as e:
         raise HTTPException(status_code=500, detail=str(e))
     except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    except TableDoesntExistException as e:
         raise HTTPException(status_code=409, detail=str(e))
     return new_reservation
 
