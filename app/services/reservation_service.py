@@ -116,7 +116,7 @@ class ReservationService:
         # Query for overlapping reservations
         statement = select(Reservation).where(
             Reservation.table_id == reservation_data.table_id,
-            Reservation.reservation_time < new_end,  # Existing reservation starts before the new one ends
+            Reservation.reservation_time < new_end,
         )
         result = await session.exec(statement)
         existing_reservations = result.all()
@@ -124,7 +124,9 @@ class ReservationService:
         # Extract raw values for conflict checking
         for reservation in existing_reservations:
             existing_start = reservation.reservation_time
-            existing_end = existing_start + timedelta(minutes=reservation.duration_minutes)
+            existing_end = existing_start + timedelta(
+                minutes=reservation.duration_minutes
+            )
 
             if new_start < existing_end and new_end > existing_start:
                 logger.warning(
